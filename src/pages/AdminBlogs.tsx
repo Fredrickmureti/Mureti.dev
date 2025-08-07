@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Plus } from "lucide-react";
 import BlogForm from "@/components/blog/BlogForm";
 import BlogTable from "@/components/blog/BlogTable";
+import { BlogTableSkeleton } from "@/components/ui/loading-skeletons";
 import type { Database } from "@/integrations/supabase/types";
 
 type BlogPost = Database['public']['Tables']['blog_posts']['Row'];
@@ -85,8 +86,13 @@ const AdminBlogs = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-background p-4 sm:p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold">Blog Management</h1>
+          </div>
+          <BlogTableSkeleton />
+        </div>
       </div>
     );
   }

@@ -61,9 +61,9 @@ const Index = () => {
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-                    <a href="mailto:fredrick@mureti.dev">
+                    <Link to="/contact">
                       Contact me
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -125,9 +125,9 @@ const Index = () => {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <a href="mailto:fredrick@mureti.dev">
+                <Link to="/contact">
                   Get In Touch
-                </a>
+                </Link>
               </Button>
             </div>
           </div>

@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import FileUpload from "@/components/admin/FileUpload";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import RichTextEditor from "./RichTextEditor";
 import { CodeEditorGuide } from "./CodeEditorGuide";
 import type { Database } from "@/integrations/supabase/types";
@@ -118,14 +119,34 @@ const BlogForm = ({ post, onSave, onCancel }: BlogFormProps) => {
 
           <div>
             <Label>Cover Image</Label>
-            <FileUpload
-              onUpload={handleCoverImageUpload}
-              onRemove={handleCoverImageRemove}
-              accept="image/*"
-              label="Upload Cover Image"
-              existingUrls={formData.cover_image ? [formData.cover_image] : []}
-              bucket="project-images"
+            <ImageUpload
+              onImageUploaded={handleCoverImageUpload}
+              multiple={false}
+              maxSizeMB={10}
+              acceptedTypes={['image/jpeg', 'image/png', 'image/webp']}
+              className="mt-2"
             />
+            {formData.cover_image && (
+              <div className="mt-3">
+                <p className="text-sm text-muted-foreground mb-2">Current cover image:</p>
+                <div className="relative inline-block">
+                  <img 
+                    src={formData.cover_image} 
+                    alt="Cover" 
+                    className="w-32 h-20 object-cover rounded border"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="absolute -top-2 -right-2 h-6 w-6 p-0"
+                    onClick={handleCoverImageRemove}
+                  >
+                    ×
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
