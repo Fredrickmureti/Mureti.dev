@@ -1,9 +1,14 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Code, Cloud, Shield } from "lucide-react";
 
+console.log('Index page loaded');
+
 const Index = () => {
+  console.log('Index component rendering');
+  
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
