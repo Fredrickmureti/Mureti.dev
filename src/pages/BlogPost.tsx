@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -91,6 +92,17 @@ const BlogPost = () => {
             </Link>
           </Button>
 
+          {/* Cover Image */}
+          {post.cover_image && (
+            <div className="aspect-video w-full mb-8 overflow-hidden rounded-lg">
+              <img
+                src={post.cover_image}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
           {/* Article Header */}
           <header className="mb-12">
             {post.categories && (
@@ -117,6 +129,12 @@ const BlogPost = () => {
               )}
             </div>
 
+            {post.excerpt && (
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                {post.excerpt}
+              </p>
+            )}
+
             {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
@@ -131,12 +149,17 @@ const BlogPost = () => {
           {/* Article Content */}
           <Card className="shadow-soft">
             <CardContent className="p-8">
-              <div className="prose prose-gray dark:prose-invert max-w-none">
-                <div 
-                  dangerouslySetInnerHTML={{ __html: post.content }}
-                  className="whitespace-pre-wrap"
-                />
-              </div>
+              <div 
+                className="prose prose-gray dark:prose-invert max-w-none prose-lg
+                           prose-headings:text-foreground prose-p:text-foreground
+                           prose-strong:text-foreground prose-em:text-foreground
+                           prose-blockquote:text-muted-foreground prose-blockquote:border-l-primary
+                           prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                           prose-pre:bg-muted prose-pre:border
+                           prose-a:text-primary hover:prose-a:text-primary/80
+                           prose-img:rounded-lg prose-img:shadow-md"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
             </CardContent>
           </Card>
 

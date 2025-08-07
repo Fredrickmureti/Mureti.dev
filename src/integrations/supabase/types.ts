@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           category_id: string | null
           content: string
+          cover_image: string | null
           created_at: string
           excerpt: string | null
           featured: boolean | null
@@ -32,6 +33,7 @@ export type Database = {
         Insert: {
           category_id?: string | null
           content: string
+          cover_image?: string | null
           created_at?: string
           excerpt?: string | null
           featured?: boolean | null
@@ -46,6 +48,7 @@ export type Database = {
         Update: {
           category_id?: string | null
           content?: string
+          cover_image?: string | null
           created_at?: string
           excerpt?: string | null
           featured?: boolean | null
