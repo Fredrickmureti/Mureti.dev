@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -121,7 +122,7 @@ ${code}
     fontFamily: "'Fira Code', 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace",
     fontLigatures: true,
     cursorBlinking: 'smooth' as const,
-    cursorSmoothCaretAnimation: true,
+    cursorSmoothCaretAnimation: 'on' as const,
     smoothScrolling: true,
     contextmenu: true,
     links: true,

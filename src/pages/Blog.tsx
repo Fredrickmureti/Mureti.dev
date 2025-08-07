@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import { Clock, Calendar, Search, ChevronLeft, ChevronRight } from "lucide-react
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { SEO } from "@/components/SEO";
-import { BlogPostGridSkeleton } from "@/components/ui/loading-skeletons";
 import { BlogPostGridSkeleton } from "@/components/ui/loading-skeletons";
 
 type BlogPost = Database['public']['Tables']['blog_posts']['Row'] & {

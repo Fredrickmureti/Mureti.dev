@@ -9,8 +9,21 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import GoogleMap from "@/components/GoogleMap";
 
+interface LocationData {
+  address: string;
+  latitude: string;
+  longitude: string;
+  zoom_level: string;
+  marker_title: string;
+  contact_info: {
+    phone: string;
+    email: string;
+    hours: string;
+  };
+}
+
 const AdminLocation = () => {
-  const [locationData, setLocationData] = useState({
+  const [locationData, setLocationData] = useState<LocationData>({
     address: "",
     latitude: "",
     longitude: "",
@@ -38,16 +51,17 @@ const AdminLocation = () => {
         if (error) {
           console.error('Error fetching location data:', error);
         } else if (data?.content) {
+          const content = data.content as any;
           setLocationData({
-            address: data.content.address || "",
-            latitude: data.content.latitude || "",
-            longitude: data.content.longitude || "",
-            zoom_level: data.content.zoom_level?.toString() || "15",
-            marker_title: data.content.marker_title || "",
+            address: content.address || "",
+            latitude: content.latitude || "",
+            longitude: content.longitude || "",
+            zoom_level: content.zoom_level?.toString() || "15",
+            marker_title: content.marker_title || "",
             contact_info: {
-              phone: data.content.contact_info?.phone || "",
-              email: data.content.contact_info?.email || "",
-              hours: data.content.contact_info?.hours || ""
+              phone: content.contact_info?.phone || "",
+              email: content.contact_info?.email || "",
+              hours: content.contact_info?.hours || ""
             }
           });
         }
