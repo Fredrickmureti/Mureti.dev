@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
+import { SEO } from "@/components/SEO";
 
 type BlogPost = Database['public']['Tables']['blog_posts']['Row'] & {
   categories: Database['public']['Tables']['categories']['Row'] | null;
@@ -81,7 +82,23 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEO 
+        title={post?.title || "Blog Post"}
+        description={post?.excerpt || "Read this blog post about full stack development, React, Node.js, and modern web technologies by Fredrick Mureti."}
+        keywords={post?.tags?.join(", ") || "Full Stack Development, React, Node.js, Web Development"}
+        url={`https://mureti.dev/blog/${slug}`}
+        type="article"
+        article={{
+          publishedTime: post?.created_at,
+          modifiedTime: post?.updated_at,
+          author: "Fredrick Mureti",
+          section: post?.categories?.name || "Technology",
+          tags: post?.tags || []
+        }}
+      />
+      
+      <div className="min-h-screen bg-background">
       <article className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Back Button */}
@@ -179,6 +196,7 @@ const BlogPost = () => {
         </div>
       </article>
     </div>
+    </>
   );
 };
 

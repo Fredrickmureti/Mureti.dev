@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Code, Database, Globe } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import { LazyImage } from "@/components/LazyImage";
 
 console.log('Index page loaded');
 
@@ -16,7 +15,7 @@ const Index = () => {
         title="Home"
         description="Fredrick Mureti - Full Stack Software Engineer specializing in React, Node.js, TypeScript, and modern web technologies. Building scalable web applications with exceptional user experiences."
         keywords="Full Stack Developer, Software Engineer, React Developer, Node.js, TypeScript, JavaScript, Web Development, Portfolio"
-        url="https://mureti.dev/"
+        url="https://fredrickmureti.com/"
       />
       
       <div className="min-h-screen bg-background">
@@ -28,12 +27,13 @@ const Index = () => {
               <div className="flex justify-center lg:justify-end order-1 lg:order-2">
                 <div className="w-80 h-80 rounded-full bg-gradient-card shadow-elegant flex items-center justify-center">
                   <div className="w-72 h-72 rounded-full overflow-hidden">
-                    <LazyImage 
+                    <img 
                       src="/Profile-pic.jpg" 
                       alt="Fredrick Mureti - Full Stack Software Engineer" 
                       className="w-full h-full object-cover"
-                      width={288}
-                      height={288}
+                      loading="eager"
+                      width="288"
+                      height="288"
                     />
                   </div>
                 </div>
@@ -61,7 +61,7 @@ const Index = () => {
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-                    <a href="mailto:fredrick@mureti.dev">
+                    <a href="mailto:fredrick@fredrickmureti.com">
                       Contact me
                     </a>
                   </Button>
@@ -125,7 +125,7 @@ const Index = () => {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <a href="mailto:fredrick@mureti.dev">
+                <a href="mailto:fredrick@fredrickmureti.com">
                   Get In Touch
                 </a>
               </Button>

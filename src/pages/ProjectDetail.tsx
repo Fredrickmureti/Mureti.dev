@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { ImageGalleryModal } from "@/components/ImageGalleryModal";
 
 type Project = Database['public']['Tables']['projects']['Row'];
 
@@ -14,6 +16,11 @@ const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Set dynamic title based on project title
+  useDocumentTitle(project?.title ? `${project.title} - Fredrick Mureti` : "Project - Fredrick Mureti");
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -145,12 +152,18 @@ const ProjectDetail = () => {
                 <h2 className="text-2xl font-semibold mb-6">Project Gallery</h2>
                 <div className="grid gap-6 md:grid-cols-2">
                   {allImages.map((image, index) => (
-                    <div key={index} className="overflow-hidden rounded-lg border group">
+                    <div 
+                      key={index} 
+                      className="overflow-hidden rounded-lg border group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                      onClick={() => {
+                        setSelectedImageIndex(index);
+                        setGalleryOpen(true);
+                      }}
+                    >
                       <img
                         src={image}
                         alt={`${project.title} screenshot ${index + 1}`}
-                        className="w-full h-auto object-cover transition-smooth hover:scale-105 cursor-pointer"
-                        onClick={() => window.open(image, '_blank')}
+                        className="w-full h-auto object-cover"
                       />
                     </div>
                   ))}
@@ -192,6 +205,15 @@ const ProjectDetail = () => {
           )}
         </div>
       </section>
+
+      {/* Image Gallery Modal */}
+      <ImageGalleryModal
+        images={allImages}
+        currentIndex={selectedImageIndex}
+        isOpen={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+        projectTitle={project?.title}
+      />
     </div>
   );
 };

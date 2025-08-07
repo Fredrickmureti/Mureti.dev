@@ -47,8 +47,8 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Get In Touch</h3>
             <div className="space-y-2 text-muted-foreground">
               <p>
-                <a href="mailto:fredrick@mureti.dev" className="hover:text-foreground transition-colors">
-                  fredrick@mureti.dev
+                <a href="mailto:fredrick@fredrickmureti.com" className="hover:text-foreground transition-colors">
+                  fredrick@fredrickmureti.com
                 </a>
               </p>
               <p>Available for freelance projects</p>

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Calendar } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
+import { SEO } from "@/components/SEO";
 
 type BlogPost = Database['public']['Tables']['blog_posts']['Row'] & {
   categories: Database['public']['Tables']['categories']['Row'] | null;
@@ -76,7 +77,15 @@ const Blog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEO 
+        title="Blog"
+        description="Read Fredrick Mureti's blog about full stack development, React, Node.js, TypeScript, and modern web technologies. Learn about software engineering best practices and tutorials."
+        keywords="Fredrick Mureti Blog, Full Stack Development Blog, React Blog, Node.js Blog, TypeScript Blog, Web Development Tutorials, Programming Blog"
+        url="https://mureti.dev/blog"
+      />
+      
+      <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -198,6 +207,7 @@ const Blog = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

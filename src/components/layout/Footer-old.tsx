@@ -47,8 +47,8 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Get In Touch</h3>
             <div className="space-y-2 text-muted-foreground">
               <p>
-                <a href="mailto:fredrick@mureti.dev" className="hover:text-foreground transition-colors">
-                  fredrick@mureti.dev
+                <a href="mailto:fredrick@fredrickmureti.com" className="hover:text-foreground transition-colors">
+                  fredrick@fredrickmureti.com
                 </a>
               </p>
               <p>Available for freelance projects</p>
@@ -69,6 +69,48 @@ const Footer = () => {
             <a href="/robots.txt" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
               Robots
             </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+  ];
+
+  return (
+    <footer className="border-t bg-card">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col items-center space-y-6">
+          {/* Social Links */}
+          <div className="flex items-center space-x-4">
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+              return (
+                <Button
+                  key={social.label}
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  className="transition-smooth hover:scale-110 hover:text-primary"
+                >
+                  <a
+                    href={social.href}
+                    target={social.label !== "Email" ? "_blank" : undefined}
+                    rel={social.label !== "Email" ? "noopener noreferrer" : undefined}
+                    aria-label={social.label}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                </Button>
+              );
+            })}
+          </div>
+
+          {/* Copyright */}
+          <div className="text-center text-sm text-muted-foreground">
+            <p>© {new Date().getFullYear()} Fredrick Mureti. </p>
           </div>
         </div>
       </div>

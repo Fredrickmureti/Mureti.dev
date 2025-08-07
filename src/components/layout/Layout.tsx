@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import { OrganizationStructuredData } from "@/components/OrganizationStructuredData";
 
 console.log('Layout component loaded');
 
@@ -14,6 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
   
   return (
     <div className="min-h-screen flex flex-col">
+      <OrganizationStructuredData />
       <Navigation />
       <main className="flex-1 pt-16">
         {children}

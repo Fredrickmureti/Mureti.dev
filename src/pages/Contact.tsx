@@ -8,8 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import GoogleMap from "@/components/GoogleMap";
 import { useWebsiteContent } from "@/hooks/useWebsiteContent";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const Contact = () => {
+  useDocumentTitle("Contact - Fredrick Mureti");
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",

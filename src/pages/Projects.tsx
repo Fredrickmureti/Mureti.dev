@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
+import { SEO } from "@/components/SEO";
 
 type Project = Database['public']['Tables']['projects']['Row'];
 
@@ -47,7 +48,15 @@ const Projects = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEO 
+        title="Projects"
+        description="Explore Fredrick Mureti's portfolio of full stack web applications built with React, Node.js, TypeScript, and modern technologies. View live demos and source code."
+        keywords="Fredrick Mureti Projects, Full Stack Projects, React Projects, Node.js Projects, TypeScript Projects, Web Development Portfolio"
+        url="https://mureti.dev/projects"
+      />
+      
+      <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -185,6 +194,7 @@ const Projects = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

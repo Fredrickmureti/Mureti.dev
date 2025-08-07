@@ -1,50 +1,60 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SEO } from "@/components/SEO";
 
 const About = () => {
   const skills = [
-    "AWS", "Azure", "Docker", "Kubernetes", "Terraform", "Jenkins",
-    "Python", "JavaScript", "React", "Node.js", "Linux", "Git",
-    "CI/CD", "Monitoring", "Security", "Networking"
+    "React", "TypeScript", "Node.js", "JavaScript", "Next.js", "Express.js",
+    "MongoDB", "PostgreSQL", "MySQL", "AWS", "Docker", "Git",
+    "REST APIs", "GraphQL", "Testing", "DevOps", "Agile", "Scrum"
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-              About Me
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Passionate Cloud Engineer with expertise in building scalable, 
-              secure, and efficient cloud infrastructure.
-            </p>
-          </div>
+    <>
+      <SEO 
+        title="About"
+        description="Learn about Fredrick Mureti, a Full Stack Software Engineer with expertise in React, Node.js, TypeScript, and modern web technologies. Passionate about building scalable applications."
+        keywords="About Fredrick Mureti, Full Stack Developer, Software Engineer, React Expert, Node.js Developer, TypeScript, JavaScript, Web Development"
+        url="https://mureti.dev/about"
+      />
+      
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+                About Me
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Passionate Full Stack Software Engineer with expertise in building scalable, 
+                modern, and efficient web applications.
+              </p>
+            </div>
 
-          {/* Main Content */}
-          <div className="grid gap-12 md:gap-16">
+            {/* Main Content */}
+            <div className="grid gap-12 md:gap-16">
             {/* Story Section */}
             <Card className="shadow-soft">
               <CardContent className="p-8">
                 <h2 className="text-2xl font-semibold mb-6">My Story</h2>
                 <div className="prose prose-gray dark:prose-invert max-w-none">
                   <p className="text-lg leading-relaxed mb-6">
-                    I'm a dedicated Cloud Engineer with a passion for designing and implementing 
-                    robust cloud solutions. My journey in technology began with a fascination for 
-                    how systems work at scale, and has evolved into a comprehensive expertise in 
-                    cloud infrastructure, DevOps practices, and security.
+                    I'm a dedicated Full Stack Software Engineer with a passion for creating 
+                    robust web applications that solve real-world problems. My journey in technology 
+                    began with a fascination for how the web works, and has evolved into comprehensive 
+                    expertise in modern web development technologies and best practices.
                   </p>
                   <p className="text-lg leading-relaxed mb-6">
-                    Over the years, I've worked with various cloud platforms including AWS, Azure, 
-                    and Google Cloud, helping organizations migrate to the cloud, optimize their 
-                    infrastructure costs, and implement best practices for security and scalability.
+                    Over the years, I've worked with various technologies across the full stack, 
+                    from building responsive frontend applications with React and TypeScript to 
+                    developing scalable backend APIs with Node.js and working with different 
+                    databases and cloud services.
                   </p>
                   <p className="text-lg leading-relaxed">
-                    When I'm not architecting cloud solutions, you'll find me contributing to 
-                    open-source projects, writing technical blogs, or exploring the latest 
-                    developments in containerization and orchestration technologies.
+                    When I'm not coding, you'll find me contributing to open-source projects, 
+                    writing technical blogs about web development, or exploring the latest 
+                    developments in JavaScript frameworks and developer tools.
                   </p>
                 </div>
               </CardContent>
@@ -106,6 +116,7 @@ const About = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 
