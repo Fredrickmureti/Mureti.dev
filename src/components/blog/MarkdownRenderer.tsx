@@ -1,10 +1,9 @@
 import ReactMarkdown from 'react-markdown';
-import rehypePrism from 'rehype-prism-plus';
 import remarkGfm from 'remark-gfm';
 import { Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import './syntax-highlighting.css';
+import { CodeHighlighter } from './CodeHighlighter';
 
 interface MarkdownRendererProps {
   content: string;
@@ -13,21 +12,9 @@ interface MarkdownRendererProps {
 
 // Custom code block component with copy functionality
 const CodeBlock = ({ children, className, ...props }: any) => {
-  const [copied, setCopied] = useState(false);
   const match = /language-(\w+)/.exec(className || '');
   const language = match ? match[1] : '';
   
-  const handleCopy = async () => {
-    try {
-      const textContent = String(children).replace(/\n$/, '');
-      await navigator.clipboard.writeText(textContent);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy code:', err);
-    }
-  };
-
   if (!match) {
     // Inline code
     return (
@@ -37,42 +24,9 @@ const CodeBlock = ({ children, className, ...props }: any) => {
     );
   }
 
-  // Code block
-  return (
-    <div className="relative group my-6">
-      {/* Code block header */}
-      <div className="flex items-center justify-between bg-[#2d2d30] px-4 py-2 rounded-t-lg border border-[#3e3e42]">
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-            <div className="w-3 h-3 rounded-full bg-[#27ca3f]"></div>
-          </div>
-          {language && (
-            <span className="text-[#cccccc] text-sm font-medium ml-2 capitalize">
-              {language}
-            </span>
-          )}
-        </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleCopy}
-          className="opacity-0 group-hover:opacity-100 transition-opacity text-[#cccccc] hover:text-white h-8 px-2 hover:bg-[#3e3e42]"
-        >
-          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          <span className="ml-1 text-xs">{copied ? 'Copied!' : 'Copy'}</span>
-        </Button>
-      </div>
-      
-      {/* Code content */}
-      <pre className={`bg-[#1e1e1e] border border-[#3e3e42] border-t-0 rounded-b-lg overflow-x-auto p-0 m-0 language-${language}`}>
-        <code className={`${className} language-${language}`} {...props}>
-          {children}
-        </code>
-      </pre>
-    </div>
-  );
+  // Code block - use our enhanced CodeHighlighter
+  const codeContent = String(children).replace(/\n$/, '');
+  return <CodeHighlighter code={codeContent} language={language} />;
 };
 
 // Custom components for better styling
@@ -237,12 +191,6 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
     <div className={`markdown-content max-w-none prose prose-lg ${className}`}>
       <ReactMarkdown
         components={components}
-        rehypePlugins={[
-          [rehypePrism, { 
-            showLineNumbers: false,
-            ignoreMissing: true 
-          }]
-        ]}
         remarkPlugins={[remarkGfm]}
       >
         {processedContent}

@@ -1,23 +1,47 @@
-/* VS Code-like syntax highlighting overrides */
-pre[class*="language-"] {
+/* VS Code-like syntax highlighting with maximum specificity */
+
+/* Base code styling - Override everything */
+.markdown-content pre[class*="language-"],
+.markdown-content code[class*="language-"],
+pre[class*="language-"],
+code[class*="language-"] {
   background: #1e1e1e !important;
-  border: 1px solid #333 !important;
-  border-radius: 8px !important;
-  padding: 1rem !important;
-  margin: 1rem 0 !important;
-  overflow-x: auto !important;
+  color: #d4d4d4 !important;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
   font-size: 14px !important;
   line-height: 1.5 !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  border: 1px solid #333 !important;
+  margin: 1rem 0 !important;
+  overflow-x: auto !important;
+  text-shadow: none !important;
+  white-space: pre !important;
+  word-spacing: normal !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  tab-size: 4 !important;
+  hyphens: none !important;
 }
 
-code[class*="language-"] {
-  background: transparent !important;
-  color: #d4d4d4 !important;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+/* Ensure inline code has transparent background */
+:not(pre) > code[class*="language-"] {
+  background: #2d2d30 !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  border: none !important;
 }
 
-/* Comments - Green */
+/* Maximum specificity for token colors */
+.markdown-content .token.comment,
+.markdown-content .token.prolog,
+.markdown-content .token.doctype,
+.markdown-content .token.cdata,
+pre[class*="language-"] .token.comment,
+pre[class*="language-"] .token.prolog,
+pre[class*="language-"] .token.doctype,
+pre[class*="language-"] .token.cdata,
 .token.comment,
 .token.prolog,
 .token.doctype,
@@ -26,17 +50,38 @@ code[class*="language-"] {
   font-style: italic !important;
 }
 
-/* Keywords - Blue */
+/* Keywords - Bright Blue */
+.markdown-content .token.keyword,
+.markdown-content .token.operator,
+.markdown-content .token.boolean,
+.markdown-content .token.null,
+.markdown-content .token.undefined,
+.markdown-content .token.important,
+pre[class*="language-"] .token.keyword,
+pre[class*="language-"] .token.operator,
+pre[class*="language-"] .token.boolean,
+pre[class*="language-"] .token.null,
+pre[class*="language-"] .token.undefined,
+pre[class*="language-"] .token.important,
 .token.keyword,
 .token.operator,
 .token.boolean,
 .token.null,
-.token.undefined {
+.token.undefined,
+.token.important {
   color: #569cd6 !important;
   font-weight: bold !important;
 }
 
 /* Strings - Orange */
+.markdown-content .token.string,
+.markdown-content .token.char,
+.markdown-content .token.attr-value,
+.markdown-content .token.regex,
+pre[class*="language-"] .token.string,
+pre[class*="language-"] .token.char,
+pre[class*="language-"] .token.attr-value,
+pre[class*="language-"] .token.regex,
 .token.string,
 .token.char,
 .token.attr-value,
@@ -45,27 +90,47 @@ code[class*="language-"] {
 }
 
 /* Numbers - Light Green */
+.markdown-content .token.number,
+pre[class*="language-"] .token.number,
 .token.number {
   color: #b5cea8 !important;
 }
 
-/* Functions - Yellow */
+/* Functions and Classes - Yellow */
+.markdown-content .token.function,
+.markdown-content .token.class-name,
+pre[class*="language-"] .token.function,
+pre[class*="language-"] .token.class-name,
 .token.function,
 .token.class-name {
   color: #dcdcaa !important;
 }
 
 /* Variables - Light Orange */
+.markdown-content .token.variable,
+pre[class*="language-"] .token.variable,
 .token.variable {
   color: #d7ba7d !important;
 }
 
 /* Punctuation - Light Gray */
+.markdown-content .token.punctuation,
+pre[class*="language-"] .token.punctuation,
 .token.punctuation {
   color: #d4d4d4 !important;
 }
 
-/* Properties and attributes */
+/* Properties and constants */
+.markdown-content .token.property,
+.markdown-content .token.tag,
+.markdown-content .token.constant,
+.markdown-content .token.symbol,
+.markdown-content .token.deleted,
+pre[class*="language-"] .token.property,
+pre[class*="language-"] .token.tag,
+pre[class*="language-"] .token.constant,
+pre[class*="language-"] .token.symbol,
+pre[class*="language-"] .token.deleted,
 .token.property,
 .token.tag,
 .token.constant,
@@ -75,9 +140,20 @@ code[class*="language-"] {
 }
 
 /* Selectors and built-ins */
+.markdown-content .token.selector,
+.markdown-content .token.attr-name,
+.markdown-content .token.builtin,
+.markdown-content .token.inserted,
+pre[class*="language-"] .token.selector,
+pre[class*="language-"] .token.attr-name,
+pre[class*="language-"] .token.builtin,
+pre[class*="language-"] .token.inserted,
 .token.selector,
 .token.attr-name,
 .token.builtin,
+.token.inserted {
+  color: #ce9178 !important;
+}
 .token.inserted {
   color: #ce9178 !important;
 }
