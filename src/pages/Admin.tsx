@@ -70,15 +70,15 @@ const Admin = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md shadow-soft">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Admin Login</CardTitle>
-            <p className="text-muted-foreground">
+            <CardTitle className="text-xl sm:text-2xl">Admin Login</CardTitle>
+            <p className="text-muted-foreground text-sm sm:text-base">
               Sign in to manage your portfolio content
             </p>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 sm:p-6">
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -116,54 +116,54 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-8">
+          {/* Header - Responsive */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
             <div>
-              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-              <p className="text-muted-foreground">
+              <h1 className="text-2xl sm:text-3xl font-bold">Admin Dashboard</h1>
+              <p className="text-muted-foreground text-sm sm:text-base">
                 Manage your portfolio content
               </p>
             </div>
-            <Button variant="outline" onClick={handleSignOut}>
+            <Button variant="outline" onClick={handleSignOut} className="w-full sm:w-auto">
               Sign Out
             </Button>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid gap-6 md:grid-cols-3 mb-8">
+          {/* Quick Stats - Responsive Grid */}
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-6 sm:mb-8">
             <Card className="shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium mb-2">Projects</h3>
-                <p className="text-3xl font-bold text-primary">0</p>
-                <p className="text-sm text-muted-foreground">Published projects</p>
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-medium mb-2">Projects</h3>
+                <p className="text-2xl sm:text-3xl font-bold text-primary">0</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Published projects</p>
               </CardContent>
             </Card>
             
             <Card className="shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium mb-2">Blog Posts</h3>
-                <p className="text-3xl font-bold text-primary">0</p>
-                <p className="text-sm text-muted-foreground">Published articles</p>
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-medium mb-2">Blog Posts</h3>
+                <p className="text-2xl sm:text-3xl font-bold text-primary">0</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Published articles</p>
               </CardContent>
             </Card>
             
-            <Card className="shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium mb-2">Categories</h3>
-                <p className="text-3xl font-bold text-primary">6</p>
-                <p className="text-sm text-muted-foreground">Blog categories</p>
+            <Card className="shadow-soft sm:col-span-2 lg:col-span-1">
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-medium mb-2">Categories</h3>
+                <p className="text-2xl sm:text-3xl font-bold text-primary">6</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Blog categories</p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Management Options */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Management Options - Responsive Grid */}
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="shadow-soft transition-smooth hover:shadow-elegant">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Manage Projects</h3>
-                <p className="text-muted-foreground mb-4">
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Manage Projects</h3>
+                <p className="text-muted-foreground mb-4 text-sm sm:text-base">
                   Add, edit, and organize your project portfolio
                 </p>
                 <Button className="w-full" asChild>
@@ -173,9 +173,9 @@ const Admin = () => {
             </Card>
 
             <Card className="shadow-soft transition-smooth hover:shadow-elegant">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Write Blog Post</h3>
-                <p className="text-muted-foreground mb-4">
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Write Blog Post</h3>
+                <p className="text-muted-foreground mb-4 text-sm sm:text-base">
                   Create and publish new technical blog posts
                 </p>
                 <Button className="w-full" asChild>
@@ -185,9 +185,9 @@ const Admin = () => {
             </Card>
 
             <Card className="shadow-soft transition-smooth hover:shadow-elegant">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Brand Management</h3>
-                <p className="text-muted-foreground mb-4">
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Brand Management</h3>
+                <p className="text-muted-foreground mb-4 text-sm sm:text-base">
                   Manage logos, colors, and brand assets
                 </p>
                 <Button className="w-full" asChild>
@@ -197,7 +197,7 @@ const Admin = () => {
             </Card>
 
             <Card className="shadow-soft transition-smooth hover:shadow-elegant">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg font-semibold mb-2">Location & Maps</h3>
                 <p className="text-muted-foreground mb-4">
                   Configure business location and Google Maps

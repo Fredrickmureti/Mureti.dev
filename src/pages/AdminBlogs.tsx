@@ -92,18 +92,19 @@ const AdminBlogs = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">Blog Management</h1>
-            <p className="text-muted-foreground">Create and manage your blog posts with rich content</p>
+    <div className="min-h-screen bg-background p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section - Responsive */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
+          <div className="flex-1">
+            <h1 className="text-2xl sm:text-3xl font-bold">Blog Management</h1>
+            <p className="text-muted-foreground text-sm sm:text-base">Create and manage your blog posts with rich content</p>
           </div>
-          <div className="flex gap-4">
-            <Button variant="outline" asChild>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+            <Button variant="outline" asChild className="w-full sm:w-auto">
               <Link to="/admin">Back to Dashboard</Link>
             </Button>
-            <Button onClick={() => setShowForm(true)}>
+            <Button onClick={() => setShowForm(true)} className="w-full sm:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               New Blog Post
             </Button>
@@ -111,7 +112,7 @@ const AdminBlogs = () => {
         </div>
 
         {showForm && (
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <BlogForm
               post={editingPost}
               onSave={handleFormSave}
@@ -122,19 +123,21 @@ const AdminBlogs = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Blog Posts ({posts.length})</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">Blog Posts ({posts.length})</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0 sm:p-6">
             {posts.length === 0 ? (
-              <div className="text-center py-8">
+              <div className="text-center py-8 px-4">
                 <p className="text-muted-foreground">No blog posts found. Create your first post!</p>
               </div>
             ) : (
-              <BlogTable
-                posts={posts}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
+              <div className="overflow-x-auto">
+                <BlogTable
+                  posts={posts}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              </div>
             )}
           </CardContent>
         </Card>
