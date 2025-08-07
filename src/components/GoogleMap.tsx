@@ -32,10 +32,10 @@ const GoogleMap = ({ latitude, longitude, zoom = 15, markerTitle = "Location" }:
     } else {
       // Load Google Maps script if not already loaded
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initGoogleMap`;
       script.async = true;
       script.defer = true;
-      window.initMap = initMap;
+      (window as any).initGoogleMap = initMap;
       document.head.appendChild(script);
     }
   }, [latitude, longitude, zoom, markerTitle]);
