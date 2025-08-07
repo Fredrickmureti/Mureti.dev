@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -66,6 +67,12 @@ const ProjectDetail = () => {
     );
   }
 
+  // Get all project images (screenshots and image_urls combined)
+  const allImages = [
+    ...(project.screenshots || []),
+    ...(project.image_urls || [])
+  ].filter(Boolean);
+
   return (
     <div className="min-h-screen bg-background">
       <section className="py-12 px-4 sm:px-6 lg:px-8">
@@ -131,18 +138,19 @@ const ProjectDetail = () => {
             </div>
           </div>
 
-          {/* Screenshots */}
-          {project.screenshots && project.screenshots.length > 0 && (
+          {/* Screenshots and Images */}
+          {allImages.length > 0 && (
             <Card className="shadow-soft mb-12">
               <CardContent className="p-6">
-                <h2 className="text-2xl font-semibold mb-6">Screenshots</h2>
+                <h2 className="text-2xl font-semibold mb-6">Project Gallery</h2>
                 <div className="grid gap-6 md:grid-cols-2">
-                  {project.screenshots.map((screenshot, index) => (
-                    <div key={index} className="overflow-hidden rounded-lg border">
+                  {allImages.map((image, index) => (
+                    <div key={index} className="overflow-hidden rounded-lg border group">
                       <img
-                        src={screenshot}
+                        src={image}
                         alt={`${project.title} screenshot ${index + 1}`}
-                        className="w-full h-auto object-cover transition-smooth hover:scale-105"
+                        className="w-full h-auto object-cover transition-smooth hover:scale-105 cursor-pointer"
+                        onClick={() => window.open(image, '_blank')}
                       />
                     </div>
                   ))}

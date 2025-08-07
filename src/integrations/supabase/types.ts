@@ -100,7 +100,9 @@ export type Database = {
           featured: boolean | null
           github_url: string | null
           id: string
+          image_urls: string[] | null
           live_url: string | null
+          preview_image: string | null
           screenshots: string[] | null
           slug: string
           status: string | null
@@ -116,7 +118,9 @@ export type Database = {
           featured?: boolean | null
           github_url?: string | null
           id?: string
+          image_urls?: string[] | null
           live_url?: string | null
+          preview_image?: string | null
           screenshots?: string[] | null
           slug: string
           status?: string | null
@@ -132,7 +136,9 @@ export type Database = {
           featured?: boolean | null
           github_url?: string | null
           id?: string
+          image_urls?: string[] | null
           live_url?: string | null
+          preview_image?: string | null
           screenshots?: string[] | null
           slug?: string
           status?: string | null

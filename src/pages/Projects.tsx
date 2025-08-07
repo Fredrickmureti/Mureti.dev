@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -70,7 +71,18 @@ const Projects = () => {
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {projects.map((project) => (
-                <Card key={project.id} className="shadow-soft transition-smooth hover:shadow-elegant hover:scale-105">
+                <Card key={project.id} className="shadow-soft transition-smooth hover:shadow-elegant hover:scale-105 overflow-hidden">
+                  {/* Preview Image */}
+                  {project.preview_image && (
+                    <div className="w-full h-48 overflow-hidden">
+                      <img
+                        src={project.preview_image}
+                        alt={`${project.title} preview`}
+                        className="w-full h-full object-cover transition-smooth hover:scale-110"
+                      />
+                    </div>
+                  )}
+                  
                   <CardContent className="p-6">
                     <h3 className="text-xl font-semibold mb-3 line-clamp-2">
                       {project.title}
