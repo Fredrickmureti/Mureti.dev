@@ -1,0 +1,275 @@
+/* VS Code-like syntax highlighting overrides */
+pre[class*="language-"] {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  margin: 1rem 0 !important;
+  overflow-x: auto !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+code[class*="language-"] {
+  background: transparent !important;
+  color: #d4d4d4 !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+/* Comments - Green */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a9955 !important;
+  font-style: italic !important;
+}
+
+/* Keywords - Blue */
+.token.keyword,
+.token.operator,
+.token.boolean,
+.token.null,
+.token.undefined {
+  color: #569cd6 !important;
+  font-weight: bold !important;
+}
+
+/* Strings - Orange */
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex {
+  color: #ce9178 !important;
+}
+
+/* Numbers - Light Green */
+.token.number {
+  color: #b5cea8 !important;
+}
+
+/* Functions - Yellow */
+.token.function,
+.token.class-name {
+  color: #dcdcaa !important;
+}
+
+/* Variables - Light Orange */
+.token.variable {
+  color: #d7ba7d !important;
+}
+
+/* Punctuation - Light Gray */
+.token.punctuation {
+  color: #d4d4d4 !important;
+}
+
+/* Properties and attributes */
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #b5cea8 !important;
+}
+
+/* Selectors and built-ins */
+.token.selector,
+.token.attr-name,
+.token.builtin,
+.token.inserted {
+  color: #ce9178 !important;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  background: #2d2d30 !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+}
+
+/* Numbers - VS Code Light Green */
+.token.number {
+  color: #b5cea8 !important;
+}
+
+/* Comments - VS Code Green */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a9955 !important;
+  font-style: italic !important;
+}
+
+/* Function names - VS Code Yellow */
+.token.function,
+.token.function-name,
+.token.method,
+.token.property-access {
+  color: #dcdcaa !important;
+}
+
+/* Variables and Properties - VS Code Light Blue */
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted,
+.token.parameter {
+  color: #9cdcfe !important;
+}
+
+/* Class names and Built-ins - VS Code Teal */
+.token.class-name,
+.token.builtin,
+.token.namespace,
+.token.selector,
+.token.attr-name,
+.token.inserted {
+  color: #4ec9b0 !important;
+}
+
+/* Operators and Punctuation - VS Code White */
+.token.operator,
+.token.entity,
+.token.url,
+.token.punctuation {
+  color: #d4d4d4 !important;
+}
+
+/* Atrules and Imports - VS Code Blue */
+.token.atrule,
+.token.rule {
+  color: #569cd6 !important;
+}
+
+/* HTML/XML Tags - VS Code Blue */
+.token.tag .token.tag,
+.token.tag .token.punctuation {
+  color: #569cd6 !important;
+}
+
+/* HTML Attributes - VS Code Light Blue */
+.token.attr-name {
+  color: #92c5f8 !important;
+}
+
+/* CSS Properties - VS Code Light Blue */
+.language-css .token.property {
+  color: #9cdcfe !important;
+}
+
+/* CSS Selectors - VS Code Gold */
+.language-css .token.selector {
+  color: #d7ba7d !important;
+}
+
+/* JSON Properties - VS Code Light Blue */
+.language-json .token.property {
+  color: #92c5f8 !important;
+}
+
+/* JavaScript specific enhancements */
+.language-javascript .token.keyword,
+.language-js .token.keyword {
+  color: #569cd6 !important;
+}
+
+.language-javascript .token.string,
+.language-js .token.string {
+  color: #ce9178 !important;
+}
+
+.language-javascript .token.function,
+.language-js .token.function {
+  color: #dcdcaa !important;
+}
+
+.language-javascript .token.property,
+.language-js .token.property {
+  color: #9cdcfe !important;
+}
+
+/* TypeScript specific */
+.language-typescript .token.keyword,
+.language-ts .token.keyword {
+  color: #569cd6 !important;
+}
+
+.language-typescript .token.type,
+.language-ts .token.type {
+  color: #4ec9b0 !important;
+}
+
+/* Python specific */
+.language-python .token.keyword {
+  color: #569cd6 !important;
+}
+
+.language-python .token.builtin {
+  color: #dcdcaa !important;
+}
+
+.language-python .token.decorator {
+  color: #dcdcaa !important;
+}
+
+/* Java specific */
+.language-java .token.keyword {
+  color: #569cd6 !important;
+}
+
+.language-java .token.class-name {
+  color: #4ec9b0 !important;
+}
+
+/* C# specific */
+.language-csharp .token.keyword {
+  color: #569cd6 !important;
+}
+
+.language-csharp .token.class-name {
+  color: #4ec9b0 !important;
+}
+
+/* SQL specific */
+.language-sql .token.keyword {
+  color: #569cd6 !important;
+}
+
+.language-sql .token.function {
+  color: #dcdcaa !important;
+}
+
+/* Remove conflicting styles */
+.markdown-content pre code {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Scrollbar styling */
+.markdown-content pre {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #3e3e3e #1e1e1e;
+}
+
+.markdown-content pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.markdown-content pre::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.markdown-content pre::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border-radius: 4px;
+}
+
+.markdown-content pre::-webkit-scrollbar-thumb:hover {
+  background: #4e4e4e;
+}

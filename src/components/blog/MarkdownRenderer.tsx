@@ -1,13 +1,10 @@
 import ReactMarkdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeRaw from 'rehype-raw';
+import rehypePrism from 'rehype-prism-plus';
 import remarkGfm from 'remark-gfm';
 import { Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-
-// Import highlight.js CSS theme
-import 'highlight.js/styles/github-dark.css';
+import './syntax-highlighting.css';
 
 interface MarkdownRendererProps {
   content: string;
@@ -34,7 +31,7 @@ const CodeBlock = ({ children, className, ...props }: any) => {
   if (!match) {
     // Inline code
     return (
-      <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-primary" {...props}>
+      <code className="bg-[#1e1e1e] text-[#ce9178] px-2 py-1 rounded text-sm font-mono border border-[#3e3e42]" {...props}>
         {children}
       </code>
     );
@@ -44,15 +41,15 @@ const CodeBlock = ({ children, className, ...props }: any) => {
   return (
     <div className="relative group my-6">
       {/* Code block header */}
-      <div className="flex items-center justify-between bg-gray-800 px-4 py-2 rounded-t-lg border border-gray-700">
+      <div className="flex items-center justify-between bg-[#2d2d30] px-4 py-2 rounded-t-lg border border-[#3e3e42]">
         <div className="flex items-center gap-2">
           <div className="flex gap-1">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#27ca3f]"></div>
           </div>
           {language && (
-            <span className="text-gray-300 text-sm font-medium ml-2 capitalize">
+            <span className="text-[#cccccc] text-sm font-medium ml-2 capitalize">
               {language}
             </span>
           )}
@@ -61,7 +58,7 @@ const CodeBlock = ({ children, className, ...props }: any) => {
           variant="ghost"
           size="sm"
           onClick={handleCopy}
-          className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-300 hover:text-white h-8 px-2"
+          className="opacity-0 group-hover:opacity-100 transition-opacity text-[#cccccc] hover:text-white h-8 px-2 hover:bg-[#3e3e42]"
         >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
           <span className="ml-1 text-xs">{copied ? 'Copied!' : 'Copy'}</span>
@@ -69,8 +66,8 @@ const CodeBlock = ({ children, className, ...props }: any) => {
       </div>
       
       {/* Code content */}
-      <pre className="bg-gray-900 border border-gray-700 border-t-0 rounded-b-lg overflow-x-auto p-4 m-0">
-        <code className={className} {...props}>
+      <pre className={`bg-[#1e1e1e] border border-[#3e3e42] border-t-0 rounded-b-lg overflow-x-auto p-0 m-0 language-${language}`}>
+        <code className={`${className} language-${language}`} {...props}>
           {children}
         </code>
       </pre>
@@ -204,24 +201,31 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
       return `\`\`\`${language}${titlePart}\n${code}\n\`\`\``;
     });
     
-    // Handle remaining HTML cleanup
+    // Handle remaining HTML cleanup - be more careful with tag removal
     processedContent = processedContent
-      // Clean up HTML tags
-      .replace(/<p><\/p>/g, '\n')
+      // Remove empty paragraphs first
+      .replace(/<p><\/p>/g, '')
+      .replace(/<p>\s*<\/p>/g, '')
+      // Handle line breaks
       .replace(/<br\s*\/?>/g, '\n')
-      .replace(/<p>/g, '')
+      // Convert paragraphs to newlines, but preserve content
+      .replace(/<p>/g, '\n')
       .replace(/<\/p>/g, '\n')
-      .replace(/<div>/g, '')
+      // Handle divs
+      .replace(/<div>/g, '\n')
       .replace(/<\/div>/g, '\n')
-      // Decode remaining HTML entities
+      // Remove any remaining HTML tags safely
+      .replace(/<[^>]*>/g, '')
+      // Decode HTML entities
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>')
       .replace(/&amp;/g, '&')
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, "'")
       .replace(/&nbsp;/g, ' ')
-      // Clean up extra whitespace
+      // Clean up excessive whitespace
       .replace(/\n\s*\n\s*\n/g, '\n\n')
+      .replace(/^\s+|\s+$/g, '') // trim start and end
       .trim();
     
     return processedContent;
@@ -233,7 +237,12 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
     <div className={`markdown-content max-w-none prose prose-lg ${className}`}>
       <ReactMarkdown
         components={components}
-        rehypePlugins={[rehypeHighlight, rehypeRaw]}
+        rehypePlugins={[
+          [rehypePrism, { 
+            showLineNumbers: false,
+            ignoreMissing: true 
+          }]
+        ]}
         remarkPlugins={[remarkGfm]}
       >
         {processedContent}
