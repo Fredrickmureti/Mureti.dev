@@ -38,14 +38,14 @@ const Index = () => {
                 DevOps best practices, and creating secure, efficient solutions that 
                 drive business growth.
               </p>
-              <div className="flex gap-4">
-                <Button asChild size="lg">
+              <div className="flex flex-col sm:flex-row gap-4 px-2 sm:px-0">
+                <Button asChild size="lg" className="w-full sm:w-auto">
                   <Link to="/about">
                     Read more about me
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
                   <a href="mailto:karan@example.com">
                     Contact me
                   </a>
