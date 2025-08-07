@@ -1,40 +1,93 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import GoogleMap from "@/components/GoogleMap";
 
 const AdminLocation = () => {
   const [locationData, setLocationData] = useState({
-    address: "Kampala, Uganda",
-    latitude: "0.3476",
-    longitude: "32.5825",
+    address: "",
+    latitude: "",
+    longitude: "",
     zoom_level: "15",
-    marker_title: "Our Office",
+    marker_title: "",
     contact_info: {
-      phone: "+256 700 123 456",
-      email: "info@devfredrick.com",
-      hours: "Monday - Friday: 8:00 AM - 6:00 PM"
+      phone: "",
+      email: "",
+      hours: ""
     }
   });
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchLocationData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('website_content')
+          .select('content')
+          .eq('section', 'location')
+          .single();
+
+        if (error) {
+          console.error('Error fetching location data:', error);
+        } else if (data?.content) {
+          setLocationData({
+            address: data.content.address || "",
+            latitude: data.content.latitude || "",
+            longitude: data.content.longitude || "",
+            zoom_level: data.content.zoom_level?.toString() || "15",
+            marker_title: data.content.marker_title || "",
+            contact_info: {
+              phone: data.content.contact_info?.phone || "",
+              email: data.content.contact_info?.email || "",
+              hours: data.content.contact_info?.hours || ""
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching location data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLocationData();
+  }, []);
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      // Mock save - in a real app this would save to database
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const contentData = {
+        address: locationData.address,
+        latitude: locationData.latitude,
+        longitude: locationData.longitude,
+        zoom_level: parseInt(locationData.zoom_level) || 15,
+        marker_title: locationData.marker_title,
+        contact_info: locationData.contact_info
+      };
+
+      const { error } = await supabase
+        .from('website_content')
+        .update({ content: contentData })
+        .eq('section', 'location');
+
+      if (error) {
+        throw error;
+      }
+
       toast({
         title: "Success",
         description: "Location updated successfully!",
       });
     } catch (error) {
+      console.error('Error saving location:', error);
       toast({
         title: "Error",
         description: "Failed to save changes",
@@ -44,6 +97,14 @@ const AdminLocation = () => {
       setSaving(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -108,17 +169,19 @@ const AdminLocation = () => {
               </div>
 
               {/* Map Preview */}
-              <div>
-                <Label>Map Preview</Label>
-                <div className="mt-2 border rounded-lg overflow-hidden">
-                  <GoogleMap
-                    latitude={parseFloat(locationData.latitude)}
-                    longitude={parseFloat(locationData.longitude)}
-                    zoom={parseInt(locationData.zoom_level)}
-                    markerTitle={locationData.marker_title}
-                  />
+              {locationData.latitude && locationData.longitude && (
+                <div>
+                  <Label>Map Preview</Label>
+                  <div className="mt-2 border rounded-lg overflow-hidden">
+                    <GoogleMap
+                      latitude={parseFloat(locationData.latitude)}
+                      longitude={parseFloat(locationData.longitude)}
+                      zoom={parseInt(locationData.zoom_level)}
+                      markerTitle={locationData.marker_title}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </CardContent>
           </Card>
 

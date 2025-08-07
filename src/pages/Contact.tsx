@@ -25,8 +25,8 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { data: locationData } = useWebsiteContent('location');
-  const { data: businessInfo } = useWebsiteContent('business_info');
+  const { data: locationData, loading: locationLoading } = useWebsiteContent('location');
+  const { data: businessInfo, loading: businessLoading } = useWebsiteContent('business_info');
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -69,8 +69,6 @@ const Contact = () => {
       // Simulate API call - replace with actual implementation
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // For now, we'll simulate success
-      // In a real implementation, you would send the data to your backend
       console.log('Form submitted:', formData);
       
       setSubmitStatus('success');
@@ -83,7 +81,6 @@ const Contact = () => {
       });
       setErrors({});
       
-      // Auto-clear success message after 5 seconds
       setTimeout(() => setSubmitStatus('idle'), 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -100,7 +97,6 @@ const Contact = () => {
       [name]: value
     }));
     
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -108,30 +104,6 @@ const Contact = () => {
       }));
     }
   };
-
-  // Parse location data safely
-  let locationContent: any = {};
-  if (locationData && typeof locationData === 'object' && 'content' in locationData) {
-    try {
-      locationContent = typeof locationData.content === 'string' 
-        ? JSON.parse(locationData.content) 
-        : locationData.content;
-    } catch (error) {
-      console.error('Error parsing location data:', error);
-    }
-  }
-
-  // Parse business info safely
-  let businessContent: any = {};
-  if (businessInfo && typeof businessInfo === 'object' && 'content' in businessInfo) {
-    try {
-      businessContent = typeof businessInfo.content === 'string' 
-        ? JSON.parse(businessInfo.content) 
-        : businessInfo.content;
-    } catch (error) {
-      console.error('Error parsing business info:', error);
-    }
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -264,7 +236,9 @@ const Contact = () => {
                     <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold mb-2">Phone</h3>
-                      <p className="text-muted-foreground">+254 (0) 700 123 456</p>
+                      <p className="text-muted-foreground">
+                        {locationData?.contact_info?.phone || businessInfo?.phone || "+256 700 123 456"}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -276,8 +250,9 @@ const Contact = () => {
                     <Mail className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold mb-2">Email</h3>
-                      <p className="text-muted-foreground">fredrick@mureti.dev</p>
-                      <p className="text-muted-foreground">contact@mureti.dev</p>
+                      <p className="text-muted-foreground">
+                        {locationData?.contact_info?.email || businessInfo?.email || "info@devfredrick.com"}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -290,7 +265,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-2">Address</h3>
                       <p className="text-muted-foreground">
-                        {locationContent.address || "Kampala, Uganda"}
+                        {locationData?.address || "Kampala, Uganda"}
                       </p>
                     </div>
                   </div>
@@ -303,9 +278,9 @@ const Contact = () => {
                     <Clock className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold mb-2">Business Hours</h3>
-                      <p className="text-muted-foreground">Monday - Friday: 8:00 AM - 6:00 PM</p>
-                      <p className="text-muted-foreground">Saturday: 9:00 AM - 4:00 PM</p>
-                      <p className="text-muted-foreground">Sunday: Closed</p>
+                      <p className="text-muted-foreground">
+                        {locationData?.contact_info?.hours || "Monday - Friday: 8:00 AM - 6:00 PM"}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -314,16 +289,16 @@ const Contact = () => {
           </div>
 
           {/* Map Section */}
-          {locationContent.latitude && locationContent.longitude && (
+          {!locationLoading && locationData?.latitude && locationData?.longitude && (
             <div className="mt-16">
               <h2 className="text-2xl font-bold mb-8 text-center">Find Us</h2>
               <Card className="shadow-soft">
                 <CardContent className="p-0 overflow-hidden rounded-lg">
                   <GoogleMap
-                    latitude={parseFloat(locationContent.latitude)}
-                    longitude={parseFloat(locationContent.longitude)}
-                    zoom={locationContent.zoom_level || 15}
-                    markerTitle={locationContent.marker_title || "Bomanet Office"}
+                    latitude={parseFloat(locationData.latitude)}
+                    longitude={parseFloat(locationData.longitude)}
+                    zoom={locationData.zoom_level || 15}
+                    markerTitle={locationData.marker_title || "DevFredrick Office"}
                   />
                 </CardContent>
               </Card>

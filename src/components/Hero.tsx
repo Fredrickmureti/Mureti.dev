@@ -21,11 +21,7 @@ const Hero = () => {
     button_link: "/contact"
   };
 
-  // Type-safe metadata access
-  const metadata = heroContent && typeof heroContent === 'object' && 'metadata' in heroContent 
-    ? heroContent.metadata as any 
-    : {};
-
+  const metadata = heroContent?.metadata || {};
   const backgroundType = metadata?.background_type || 'image';
   const backgroundUrl = metadata?.background_url || '';
   const fallbackImage = metadata?.fallback_image || '';

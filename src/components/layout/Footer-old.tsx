@@ -1,121 +1,73 @@
-import { SocialLinks } from "@/components/SocialLinks";
+import { Link } from "react-router-dom";
 
-const Footer = () => {
+const FooterOld = () => {
   return (
-    <footer className="bg-muted/30 border-t">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid gap-8 md:grid-cols-3">
-          {/* About Section */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Fredrick Mureti</h3>
-            <p className="text-muted-foreground mb-4">
-              Full Stack Software Engineer passionate about building scalable web applications 
-              with modern technologies and delivering exceptional user experiences.
+    <footer className="bg-muted/50 border-t">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">DevFredrick</h3>
+            <p className="text-sm text-muted-foreground">
+              Building innovative solutions with cutting-edge technology.
             </p>
-            <SocialLinks variant="footer" />
           </div>
-          
+
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/projects" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </a>
-              </li>
-            </ul>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Quick Links</h3>
+            <nav className="flex flex-col space-y-2">
+              <Link to="/" className="text-sm text-muted-foreground hover:text-primary">
+                Home
+              </Link>
+              <Link to="/about" className="text-sm text-muted-foreground hover:text-primary">
+                About
+              </Link>
+              <Link to="/projects" className="text-sm text-muted-foreground hover:text-primary">
+                Projects
+              </Link>
+              <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary">
+                Contact
+              </Link>
+            </nav>
           </div>
-          
+
+          {/* Services */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Services</h3>
+            <nav className="flex flex-col space-y-2">
+              <span className="text-sm text-muted-foreground">Web Development</span>
+              <span className="text-sm text-muted-foreground">Mobile Apps</span>
+              <span className="text-sm text-muted-foreground">UI/UX Design</span>
+              <span className="text-sm text-muted-foreground">Consulting</span>
+            </nav>
+          </div>
+
           {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Get In Touch</h3>
-            <div className="space-y-2 text-muted-foreground">
-              <p>
-                <a href="mailto:fredrick@fredrickmureti.com" className="hover:text-foreground transition-colors">
-                  fredrick@fredrickmureti.com
-                </a>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Contact</h3>
+            <div className="space-y-2">
+              <p className="text-sm text-muted-foreground">
+                Kampala, Uganda
               </p>
-              <p>Available for freelance projects</p>
-              <p>Remote work worldwide</p>
+              <p className="text-sm text-muted-foreground">
+                +256 700 123 456
+              </p>
+              <p className="text-sm text-muted-foreground">
+                info@devfredrick.com
+              </p>
             </div>
           </div>
         </div>
-        
-        {/* Bottom Section */}
-        <div className="border-t mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Fredrick Mureti. All rights reserved.
+
+        <div className="mt-12 pt-8 border-t text-center">
+          <p className="text-sm text-muted-foreground">
+            © 2024 DevFredrick. All rights reserved.
           </p>
-          <div className="flex gap-4 mt-4 sm:mt-0">
-            <a href="/sitemap.xml" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-              Sitemap
-            </a>
-            <a href="/robots.txt" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-              Robots
-            </a>
-          </div>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Footer;
-  ];
-
-  return (
-    <footer className="border-t bg-card">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col items-center space-y-6">
-          {/* Social Links */}
-          <div className="flex items-center space-x-4">
-            {socialLinks.map((social) => {
-              const Icon = social.icon;
-              return (
-                <Button
-                  key={social.label}
-                  variant="ghost"
-                  size="icon"
-                  asChild
-                  className="transition-smooth hover:scale-110 hover:text-primary"
-                >
-                  <a
-                    href={social.href}
-                    target={social.label !== "Email" ? "_blank" : undefined}
-                    rel={social.label !== "Email" ? "noopener noreferrer" : undefined}
-                    aria-label={social.label}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </a>
-                </Button>
-              );
-            })}
-          </div>
-
-          {/* Copyright */}
-          <div className="text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Fredrick Mureti. </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;
+export default FooterOld;
