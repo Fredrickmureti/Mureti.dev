@@ -1,13 +1,29 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SkillBadge } from "@/components/ui/SkillBadge";
 import { SEO } from "@/components/SEO";
 
 const About = () => {
-  const skills = [
-    "React", "TypeScript", "Node.js", "JavaScript", "Next.js", "Express.js",
-    "MongoDB", "PostgreSQL", "MySQL", "AWS", "Docker", "Git",
-    "REST APIs", "GraphQL", "Testing", "DevOps", "Agile", "Scrum"
-  ];
+  const skillCategories = {
+    "Frontend": [
+      "React", "TypeScript", "JavaScript", "Next.js", "HTML", "CSS", "Tailwind CSS"
+    ],
+    "Backend": [
+      "Node.js", "Express.js", "Python", "REST APIs", "GraphQL"
+    ],
+    "Databases": [
+      "MongoDB", "PostgreSQL", "MySQL", "Redis"
+    ],
+    "Cloud & DevOps": [
+      "AWS", "Docker", "CI/CD", "DevOps"
+    ],
+    "Tools & Testing": [
+      "Git", "GitHub", "Testing", "Jest", "Vite"
+    ],
+    "Methodologies": [
+      "Agile", "Scrum"
+    ]
+  };
 
   return (
     <>
@@ -63,16 +79,19 @@ const About = () => {
             {/* Skills Section */}
             <Card className="shadow-soft">
               <CardContent className="p-8">
-                <h2 className="text-2xl font-semibold mb-6">Skills & Technologies</h2>
-                <div className="flex flex-wrap gap-3">
-                  {skills.map((skill) => (
-                    <Badge 
-                      key={skill} 
-                      variant="secondary" 
-                      className="px-3 py-1 text-sm transition-smooth hover:scale-105"
-                    >
-                      {skill}
-                    </Badge>
+                <h2 className="text-2xl font-semibold mb-8">Skills & Technologies</h2>
+                <div className="space-y-8">
+                  {Object.entries(skillCategories).map(([category, skills]) => (
+                    <div key={category} className="space-y-4">
+                      <h3 className="text-lg font-medium text-muted-foreground border-b border-border pb-2">
+                        {category}
+                      </h3>
+                      <div className="flex flex-wrap gap-3">
+                        {skills.map((skill) => (
+                          <SkillBadge key={skill} skill={skill} />
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </CardContent>
