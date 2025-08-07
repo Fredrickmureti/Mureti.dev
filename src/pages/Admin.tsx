@@ -223,8 +223,8 @@ const Admin = () => {
                 <p className="text-muted-foreground mb-4">
                   Organize blog posts with categories and tags
                 </p>
-                <Button className="w-full">
-                  Manage Categories
+                <Button className="w-full" asChild>
+                  <Link to="/admin/categories">Manage Categories</Link>
                 </Button>
               </CardContent>
             </Card>

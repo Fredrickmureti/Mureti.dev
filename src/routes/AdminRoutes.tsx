@@ -6,6 +6,7 @@ import AdminBlogs from "@/pages/AdminBlogs";
 import AdminBranding from "@/pages/AdminBranding";
 import AdminLocation from "@/pages/AdminLocation";
 import AdminMedia from "@/pages/AdminMedia";
+import AdminCategories from "@/pages/AdminCategories";
 
 console.log('AdminRoutes loaded');
 
@@ -20,6 +21,7 @@ const AdminRoutes = () => {
       <Route path="/branding" element={<AdminBranding />} />
       <Route path="/location" element={<AdminLocation />} />
       <Route path="/media" element={<AdminMedia />} />
+      <Route path="/categories" element={<AdminCategories />} />
     </Routes>
   );
 };

@@ -15,8 +15,17 @@ const Index = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-            {/* Text Content */}
-            <div>
+            {/* Profile Image - First on mobile */}
+            <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+              <div className="w-80 h-80 rounded-full bg-gradient-card shadow-elegant flex items-center justify-center">
+                <div className="w-72 h-72 rounded-full bg-muted flex items-center justify-center">
+                  <span className="text-6xl font-bold text-muted-foreground">K</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Text Content - Second on mobile */}
+            <div className="order-2 lg:order-1">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
                 Hi, I am{" "}
                 <span className="text-primary">Karan</span>
@@ -41,15 +50,6 @@ const Index = () => {
                     Contact me
                   </a>
                 </Button>
-              </div>
-            </div>
-
-            {/* Profile Image Placeholder */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="w-80 h-80 rounded-full bg-gradient-card shadow-elegant flex items-center justify-center">
-                <div className="w-72 h-72 rounded-full bg-muted flex items-center justify-center">
-                  <span className="text-6xl font-bold text-muted-foreground">K</span>
-                </div>
               </div>
             </div>
           </div>
