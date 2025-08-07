@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Plus, Edit2, Trash2 } from "lucide-react";
+import { slugify } from "@/utils/slugify";
 import type { Database } from "@/integrations/supabase/types";
 
 type Category = Database['public']['Tables']['categories']['Row'];
@@ -54,10 +54,17 @@ const AdminCategories = () => {
     e.preventDefault();
     
     try {
+      const slug = slugify(formData.name);
+      
       if (editingCategory) {
         const { error } = await supabase
           .from('categories')
-          .update(formData)
+          .update({
+            name: formData.name,
+            description: formData.description,
+            color: formData.color,
+            slug: slug
+          })
           .eq('id', editingCategory.id);
 
         if (error) throw error;
@@ -68,7 +75,12 @@ const AdminCategories = () => {
       } else {
         const { error } = await supabase
           .from('categories')
-          .insert([formData]);
+          .insert([{
+            name: formData.name,
+            description: formData.description,
+            color: formData.color,
+            slug: slug
+          }]);
 
         if (error) throw error;
         toast({
