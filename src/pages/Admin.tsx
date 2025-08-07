@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -161,8 +163,8 @@ const Admin = () => {
                 <p className="text-muted-foreground mb-4">
                   Add, edit, and organize your project portfolio
                 </p>
-                <Button className="w-full">
-                  Manage Projects
+                <Button className="w-full" asChild>
+                  <Link to="/admin/projects">Manage Projects</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -173,15 +175,51 @@ const Admin = () => {
                 <p className="text-muted-foreground mb-4">
                   Create and publish new technical blog posts
                 </p>
-                <Button className="w-full">
-                  New Blog Post
+                <Button className="w-full" asChild>
+                  <Link to="/admin/blogs">Manage Blog Posts</Link>
                 </Button>
               </CardContent>
             </Card>
 
             <Card className="shadow-soft transition-smooth hover:shadow-elegant">
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Manage Categories</h3>
+                <h3 className="text-lg font-semibold mb-2">Brand Management</h3>
+                <p className="text-muted-foreground mb-4">
+                  Manage logos, colors, and brand assets
+                </p>
+                <Button className="w-full" asChild>
+                  <Link to="/admin/branding">Brand Settings</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-soft transition-smooth hover:shadow-elegant">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Location & Maps</h3>
+                <p className="text-muted-foreground mb-4">
+                  Configure business location and Google Maps
+                </p>
+                <Button className="w-full" asChild>
+                  <Link to="/admin/location">Location Settings</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-soft transition-smooth hover:shadow-elegant">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Media Management</h3>
+                <p className="text-muted-foreground mb-4">
+                  Upload and manage hero videos and images
+                </p>
+                <Button className="w-full" asChild>
+                  <Link to="/admin/media">Media Settings</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-soft transition-smooth hover:shadow-elegant">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Categories</h3>
                 <p className="text-muted-foreground mb-4">
                   Organize blog posts with categories and tags
                 </p>
