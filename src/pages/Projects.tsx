@@ -72,16 +72,56 @@ const Projects = () => {
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {projects.map((project) => (
                 <Card key={project.id} className="shadow-soft transition-smooth hover:shadow-elegant hover:scale-105 overflow-hidden">
-                  {/* Preview Image */}
-                  {project.preview_image && (
-                    <div className="w-full h-48 overflow-hidden">
+                  {/* Preview Image - Always show this section */}
+                  <div className="w-full h-48 overflow-hidden bg-muted flex items-center justify-center">
+                    {project.preview_image ? (
                       <img
                         src={project.preview_image}
                         alt={`${project.title} preview`}
                         className="w-full h-full object-cover transition-smooth hover:scale-110"
+                        onError={(e) => {
+                          // Fallback to first screenshot or image_url if preview_image fails
+                          const target = e.target as HTMLImageElement;
+                          const fallbackImage = project.screenshots?.[0] || project.image_urls?.[0];
+                          if (fallbackImage && target.src !== fallbackImage) {
+                            target.src = fallbackImage;
+                          } else {
+                            target.style.display = 'none';
+                            target.parentElement!.innerHTML = '<div class="text-muted-foreground text-sm">No preview available</div>';
+                          }
+                        }}
                       />
-                    </div>
-                  )}
+                    ) : project.screenshots?.[0] ? (
+                      <img
+                        src={project.screenshots[0]}
+                        alt={`${project.title} preview`}
+                        className="w-full h-full object-cover transition-smooth hover:scale-110"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          const fallbackImage = project.image_urls?.[0];
+                          if (fallbackImage && target.src !== fallbackImage) {
+                            target.src = fallbackImage;
+                          } else {
+                            target.style.display = 'none';
+                            target.parentElement!.innerHTML = '<div class="text-muted-foreground text-sm">No preview available</div>';
+                          }
+                        }}
+                      />
+                    ) : project.image_urls?.[0] ? (
+                      <img
+                        src={project.image_urls[0]}
+                        alt={`${project.title} preview`}
+                        className="w-full h-full object-cover transition-smooth hover:scale-110"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.parentElement!.innerHTML = '<div class="text-muted-foreground text-sm">No preview available</div>';
+                        }}
+                      />
+                    ) : (
+                      <div className="text-muted-foreground text-sm">No preview available</div>
+                    )}
+                  </div>
                   
                   <CardContent className="p-6">
                     <h3 className="text-xl font-semibold mb-3 line-clamp-2">

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -128,56 +129,60 @@ const Blog = () => {
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {filteredPosts.map((post) => (
-                <Card key={post.id} className="shadow-soft transition-smooth hover:shadow-elegant hover:scale-105">
-                  <CardContent className="p-6">
-                    <div className="mb-4">
-                      {post.categories && (
-                        <Badge variant="secondary" className="mb-3">
-                          {post.categories.name}
-                        </Badge>
-                      )}
-                      
-                      <h3 className="text-xl font-semibold mb-3 line-clamp-2">
-                        <Link 
-                          to={`/blog/${post.slug}`}
-                          className="hover:text-primary transition-fast"
-                        >
-                          {post.title}
-                        </Link>
-                      </h3>
-                      
-                      {post.excerpt && (
-                        <p className="text-muted-foreground mb-4 line-clamp-3">
-                          {post.excerpt}
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        <span>{formatDate(post.created_at)}</span>
-                      </div>
-                      
-                      {post.reading_time && (
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          <span>{post.reading_time} min read</span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {post.tags.slice(0, 3).map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">
-                            {tag}
+                <Link key={post.id} to={`/blog/${post.slug}`} className="block">
+                  <Card className="shadow-soft transition-smooth hover:shadow-elegant hover:scale-105 cursor-pointer h-full">
+                    <CardContent className="p-6 flex flex-col h-full">
+                      <div className="flex-1">
+                        {post.categories && (
+                          <Badge variant="secondary" className="mb-3">
+                            {post.categories.name}
                           </Badge>
-                        ))}
+                        )}
+                        
+                        <h3 className="text-xl font-semibold mb-3 line-clamp-2 hover:text-primary transition-fast">
+                          {post.title}
+                        </h3>
+                        
+                        {post.excerpt && (
+                          <p className="text-muted-foreground mb-4 line-clamp-3">
+                            {post.excerpt}
+                          </p>
+                        )}
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
+                      
+                      <div className="mt-auto">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            <span>{formatDate(post.created_at)}</span>
+                          </div>
+                          
+                          {post.reading_time && (
+                            <div className="flex items-center gap-1">
+                              <Clock className="h-4 w-4" />
+                              <span>{post.reading_time} min read</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {post.tags.slice(0, 3).map((tag) => (
+                              <Badge key={tag} variant="outline" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
+                            {post.tags.length > 3 && (
+                              <Badge variant="outline" className="text-xs">
+                                +{post.tags.length - 3} more
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           )}
