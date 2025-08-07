@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { SEO } from "@/components/SEO";
+import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer";
 
 type BlogPost = Database['public']['Tables']['blog_posts']['Row'] & {
   categories: Database['public']['Tables']['categories']['Row'] | null;
@@ -166,17 +167,7 @@ const BlogPost = () => {
           {/* Article Content */}
           <Card className="shadow-soft">
             <CardContent className="p-8">
-              <div 
-                className="prose prose-gray dark:prose-invert max-w-none prose-lg
-                           prose-headings:text-foreground prose-p:text-foreground
-                           prose-strong:text-foreground prose-em:text-foreground
-                           prose-blockquote:text-muted-foreground prose-blockquote:border-l-primary
-                           prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-                           prose-pre:bg-muted prose-pre:border
-                           prose-a:text-primary hover:prose-a:text-primary/80
-                           prose-img:rounded-lg prose-img:shadow-md"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <MarkdownRenderer content={post.content} />
             </CardContent>
           </Card>
 

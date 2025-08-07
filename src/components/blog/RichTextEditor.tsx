@@ -1,9 +1,13 @@
 
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Code } from 'lucide-react';
+import { CodeSnippetEditor } from './CodeSnippetEditor';
 
 interface RichTextEditorProps {
   value: string;
@@ -13,6 +17,31 @@ interface RichTextEditorProps {
 const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
   const quillRef = useRef<ReactQuill>(null);
   const { toast } = useToast();
+  const [showCodeEditor, setShowCodeEditor] = useState(false);
+
+  const insertCodeSnippet = (codeBlock: string) => {
+    const quill = quillRef.current?.getEditor();
+    if (quill) {
+      const range = quill.getSelection();
+      const index = range ? range.index : 0;
+      
+      // Create a temporary div to preserve the markdown format
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = `<pre data-markdown="true">${codeBlock.replace(/\n/g, '<br>')}</pre>`;
+      
+      // Insert the code block preserving markdown format
+      quill.insertText(index, '\n' + codeBlock + '\n');
+      
+      // Move cursor to end of inserted text
+      quill.setSelection(index + codeBlock.length + 2);
+    }
+    setShowCodeEditor(false);
+    
+    toast({
+      title: "Success",
+      description: "Code snippet inserted successfully!",
+    });
+  };
 
   const imageHandler = async () => {
     const input = document.createElement('input');
@@ -102,17 +131,38 @@ const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
   ];
 
   return (
-    <div className="bg-white rounded-lg border">
-      <ReactQuill
-        ref={quillRef}
-        theme="snow"
-        value={value}
-        onChange={onChange}
-        modules={modules}
-        formats={formats}
-        style={{ minHeight: '300px' }}
-        placeholder="Start writing your blog post..."
-      />
+    <div className="space-y-4">
+      {/* Code Editor Button */}
+      <div className="flex justify-end">
+        <Dialog open={showCodeEditor} onOpenChange={setShowCodeEditor}>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Code className="h-4 w-4" />
+              Add Code Snippet
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Insert Code Snippet</DialogTitle>
+            </DialogHeader>
+            <CodeSnippetEditor onInsert={insertCodeSnippet} />
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Rich Text Editor */}
+      <div className="bg-white rounded-lg border">
+        <ReactQuill
+          ref={quillRef}
+          theme="snow"
+          value={value}
+          onChange={onChange}
+          modules={modules}
+          formats={formats}
+          style={{ minHeight: '300px' }}
+          placeholder="Start writing your blog post..."
+        />
+      </div>
     </div>
   );
 };

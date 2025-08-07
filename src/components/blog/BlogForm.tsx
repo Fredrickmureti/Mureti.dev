@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import FileUpload from "@/components/admin/FileUpload";
 import RichTextEditor from "./RichTextEditor";
+import { CodeEditorGuide } from "./CodeEditorGuide";
 import type { Database } from "@/integrations/supabase/types";
 
 type BlogPost = Database['public']['Tables']['blog_posts']['Row'];
@@ -48,7 +49,7 @@ const BlogForm = ({ post, onSave, onCancel }: BlogFormProps) => {
         ...formData,
         tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
         slug: formData.slug || formData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
-        reading_time: Math.ceil(formData.content.replace(/<[^>]*>/g, '').split(' ').length / 200) // Estimate reading time from HTML content
+        reading_time: Math.ceil(formData.content.replace(/<[^>]*>/g, '').replace(/```[\s\S]*?```/g, '').split(' ').length / 200) // Estimate reading time from content (excluding code blocks)
       };
 
       if (post) {
@@ -139,6 +140,7 @@ const BlogForm = ({ post, onSave, onCancel }: BlogFormProps) => {
 
           <div>
             <Label>Content *</Label>
+            <CodeEditorGuide />
             <RichTextEditor
               value={formData.content}
               onChange={(content) => setFormData(prev => ({ ...prev, content }))}
