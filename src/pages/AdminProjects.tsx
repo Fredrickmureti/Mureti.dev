@@ -9,6 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Plus, Edit, Trash2 } from "lucide-react";
+import type { Database } from "@/integrations/supabase/types";
+
+type ProjectRow = Database['public']['Tables']['projects']['Row'];
 
 interface Project {
   id: string;
@@ -60,7 +63,21 @@ const AdminProjects = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setProjects(data || []);
+      
+      // Transform the data to match our Project interface
+      const transformedData: Project[] = (data || []).map((project: ProjectRow) => ({
+        ...project,
+        status: (project.status === 'draft' ? 'draft' : 'published') as "published" | "draft",
+        description: project.description || '',
+        content: project.content || '',
+        tech_stack: project.tech_stack || [],
+        github_url: project.github_url || '',
+        live_url: project.live_url || '',
+        demo_video_url: project.demo_video_url || '',
+        screenshots: project.screenshots || []
+      }));
+      
+      setProjects(transformedData);
     } catch (error) {
       console.error('Error fetching projects:', error);
       toast({
