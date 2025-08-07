@@ -98,7 +98,7 @@ const About = () => {
             </Card>
 
             {/* Experience Section */}
-            <Card className="shadow-soft">
+            {/* <Card className="shadow-soft">
               <CardContent className="p-8">
                 <h2 className="text-2xl font-semibold mb-6">Experience</h2>
                 <div className="space-y-8">
@@ -130,7 +130,7 @@ const About = () => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </section>
