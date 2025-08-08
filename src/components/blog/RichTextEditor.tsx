@@ -18,29 +18,61 @@ const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
   const quillRef = useRef<ReactQuill>(null);
   const { toast } = useToast();
   const [showCodeEditor, setShowCodeEditor] = useState(false);
+  const [savedSelection, setSavedSelection] = useState<{ index: number; length: number } | null>(null);
 
   const insertCodeSnippet = (codeBlock: string) => {
     const quill = quillRef.current?.getEditor();
     if (quill) {
-      const range = quill.getSelection();
-      const index = range ? range.index : 0;
+      // Use saved selection or current selection, fallback to end of document
+      let insertIndex = 0;
       
-      // Create a temporary div to preserve the markdown format
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = `<pre data-markdown="true">${codeBlock.replace(/\n/g, '<br>')}</pre>`;
+      if (savedSelection) {
+        insertIndex = savedSelection.index;
+      } else {
+        const currentSelection = quill.getSelection();
+        if (currentSelection) {
+          insertIndex = currentSelection.index;
+        } else {
+          // If no selection, insert at end of content
+          insertIndex = quill.getLength() - 1;
+        }
+      }
       
-      // Insert the code block preserving markdown format
-      quill.insertText(index, '\n' + codeBlock + '\n');
+      // Insert the code block with proper formatting
+      const formattedCodeBlock = `\n\`\`\`\n${codeBlock}\n\`\`\`\n`;
+      
+      quill.insertText(insertIndex, formattedCodeBlock);
       
       // Move cursor to end of inserted text
-      quill.setSelection(index + codeBlock.length + 2);
+      const newPosition = insertIndex + formattedCodeBlock.length;
+      quill.setSelection(newPosition, 0);
+      
+      // Focus back to editor
+      quill.focus();
     }
+    
     setShowCodeEditor(false);
+    setSavedSelection(null);
     
     toast({
       title: "Success",
       description: "Code snippet inserted successfully!",
     });
+  };
+
+  const handleCodeEditorOpen = () => {
+    const quill = quillRef.current?.getEditor();
+    if (quill) {
+      // Save current selection before opening dialog
+      const selection = quill.getSelection();
+      if (selection) {
+        setSavedSelection(selection);
+      } else {
+        // If no selection, save cursor at end of content
+        setSavedSelection({ index: quill.getLength() - 1, length: 0 });
+      }
+    }
+    setShowCodeEditor(true);
   };
 
   const imageHandler = async () => {
@@ -136,7 +168,11 @@ const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
       <div className="flex justify-end">
         <Dialog open={showCodeEditor} onOpenChange={setShowCodeEditor}>
           <DialogTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2"
+              onClick={handleCodeEditorOpen}
+            >
               <Code className="h-4 w-4" />
               Add Code Snippet
             </Button>
