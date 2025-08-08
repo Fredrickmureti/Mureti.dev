@@ -289,7 +289,7 @@ const Contact = () => {
           </div>
 
           {/* Map Section */}
-          {!locationLoading && locationData?.latitude && locationData?.longitude && (
+          {/* {!locationLoading && locationData?.latitude && locationData?.longitude && (
             <div className="mt-16">
               <h2 className="text-2xl font-bold mb-8 text-center">Find Us</h2>
               <Card className="shadow-soft">
@@ -303,7 +303,7 @@ const Contact = () => {
                 </CardContent>
               </Card>
             </div>
-          )}
+          )} */}
         </div>
       </section>
     </div>
